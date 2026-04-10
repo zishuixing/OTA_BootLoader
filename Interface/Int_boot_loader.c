@@ -80,6 +80,30 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
             // flash擦除比较耗费性能
             HAL_FLASHEx_Erase(&erase_init, &page_error);
         }
+        // 2.3 使用16位写入 => 比较贴合实际情况
+        for (uint32_t i = 0; i < Size; i += 2)
+        {
+            uint32_t flash_addr = APPLICATION_FLASH_START_ADDR + flash_write_offset + i;
+            uint16_t data16;
+            if (i + 1 < Size)
+            {
+                // 写入16位数据
+                data16 = (rx_buf[i]) | (rx_buf[i + 1] << 8);
+                // 写入flash
+                HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, flash_addr, data16);
+            }
+
+            else
+            {
+                // 最后一个字节出现了单独的情况
+                // 写入8位数据
+                data16 = rx_buf[i] | (0xff << 8);
+            }
+            // 写入flash
+            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, flash_addr, data16);
+        }
+        // 2.4  记录偏移量
+        flash_write_offset += Size;
 
         // 加锁
         HAL_FLASH_Lock();
