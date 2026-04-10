@@ -104,6 +104,9 @@ int main(void)
 
     // 打印数据长度
     printf("rx_len:%d\r\n", rx_len);
+    // 跳转到application程序复位中断
+    Int_boot_jump_to_application();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

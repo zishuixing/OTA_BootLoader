@@ -28,18 +28,22 @@ Project File Date:  04/09/2026
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'OTA_BootLoader'
 compiling Int_boot_loader.c...
-..\Interface\Int_boot_loader.c(49): warning:  #223-D: function "printf" declared implicitly
+..\Interface\Int_boot_loader.c(34): warning:  #223-D: function "printf" declared implicitly
+          printf("Stack Address Error: 0x%08X\n", stack_addr);
+..\Interface\Int_boot_loader.c(44): warning:  #223-D: function "printf" declared implicitly
+          printf("Jump Address Error: 0x%08X\n", jump_addr);
+..\Interface\Int_boot_loader.c(102): warning:  #223-D: function "printf" declared implicitly
                   printf("Flash Error Code: 0x%08X\n", error_code);
-..\Interface\Int_boot_loader.c(82): warning:  #223-D: function "printf" declared implicitly
+..\Interface\Int_boot_loader.c(135): warning:  #223-D: function "printf" declared implicitly
               printf("Flash Error Code: 0x%08X\n", error_code);
-..\Interface\Int_boot_loader.c(202): warning:  #223-D: function "memset" declared implicitly
+..\Interface\Int_boot_loader.c(255): warning:  #223-D: function "memset" declared implicitly
           memset(rx_buf, 0, BOOTLOADER_RX_BUF_SIZE);
-..\Interface\Int_boot_loader.c: 3 warnings, 0 errors
+..\Interface\Int_boot_loader.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=9388 RO-data=380 RW-data=32 ZI-data=1640  
+Program Size: Code=9584 RO-data=380 RW-data=32 ZI-data=1640  
 FromELF: creating hex file...
 After Build - User command #1: C:\Keil_v5\ARM\ARMCLANG\bin\fromelf --bin -o "OTA_BootLoader\OTA_BootLoader.bin" "OTA_BootLoader\OTA_BootLoader.axf"
-"OTA_BootLoader\OTA_BootLoader.axf" - 0 Error(s), 3 Warning(s).
+"OTA_BootLoader\OTA_BootLoader.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 

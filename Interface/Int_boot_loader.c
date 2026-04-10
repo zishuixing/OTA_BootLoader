@@ -14,6 +14,66 @@ uint8_t is_last_byte = 0;
 // flag 标志位
 uint8_t is_flag_byte = 0;
 
+void Int_boot_jump_to_application(void)
+{
+    // 定义一个指针函数
+    typedef void (*Funcp)(void);
+
+    // 1.鲁棒性检查
+    // 确定栈指针地址
+    uint32_t stack_addr = *(volatile uint32_t *)APPLICATION_FLASH_START_ADDR;
+
+    // 确定跳转地址
+    uint32_t jump_addr = *(volatile uint32_t *)(APPLICATION_FLASH_START_ADDR + 4);
+
+    // 1.1校验栈顶地址
+    if ((stack_addr & 0xffff0000) != STACK_ADDR)
+    {
+        // 错误打印
+
+        printf("Stack Address Error: 0x%08X\n", stack_addr);
+
+        return;
+    }
+
+    // 1.2校验跳转地址 end合法性
+
+    if (jump_addr < APPLICATION_FLASH_START_ADDR || jump_addr > APPLICATION_FLASH_END_ADDR)
+    {
+        // 错误打印
+        printf("Jump Address Error: 0x%08X\n", jump_addr);
+
+        return;
+    }
+
+    // 2.注销bootloader程序
+
+    NVIC_DISABLE_IRQ(EXTI9_5_IRQn);
+    NVIC_DISABLE_IRQ(USART1_IRQn);
+
+    // 关闭systick
+    SysTick->CTRL = 0;
+    SysTick->VAL = 0;
+    SysTick->LOAD = 0;
+
+    // 2.1关闭中断
+    __disable_irq();
+    // 注销hal初始化 注销掉外设的配置 不会注销内核
+    HAL_DeInit();
+
+    // 2.2设置栈顶指针
+    // 设置栈指针
+    __set_MSP(stack_addr);
+
+    // 2.3重定向中断向量表
+    // 重定向中断向量表
+    SCB->VTOR = APPLICATION_FLASH_START_ADDR;
+
+    // 3.跳转到application程序复位中断
+    Funcp jump_to_app = (Funcp)jump_addr;
+    jump_to_app();
+}
+
 void Int_boot_loader_Init(void)
 {
 
