@@ -99,7 +99,10 @@ int main(void)
   while (1)
   {
     HAL_Delay(3000);
-    //打印数据长度
+    // 灯闪烁
+    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+
+    // 打印数据长度
     printf("rx_len:%d\r\n", rx_len);
     /* USER CODE END WHILE */
 
