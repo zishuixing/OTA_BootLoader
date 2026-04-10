@@ -6,13 +6,13 @@
 #define BOOTLOADER_RX_BUF_SIZE 512
 
 //定义一个flash地址 start地址 bootloader地址
-#define BOOTLOADER_FLASH_ADDR (0x80000000)
+#define BOOTLOADER_FLASH_ADDR (0x08000000)
 
 //定义一个 application程序地址
-#define APPLICATION_FLASH_START_ADDR (0x80004000)
+#define APPLICATION_FLASH_START_ADDR (0x08004000)
 
 //定义一个 application程序地址 end地址 等于512KB-16KB 4000等于16KB
-#define APPLICATION_FLASH_END_ADDR (0x8007C000)
+#define APPLICATION_FLASH_END_ADDR (0x0807C000)
 
 
 void Int_boot_loader_Init(void);

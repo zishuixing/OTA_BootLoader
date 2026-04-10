@@ -89,8 +89,6 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
             {
                 // 写入16位数据
                 data16 = (rx_buf[i]) | (rx_buf[i + 1] << 8);
-                // 写入flash
-                HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, flash_addr, data16);
             }
 
             else
@@ -100,7 +98,15 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
                 data16 = rx_buf[i] | (0xff << 8);
             }
             // 写入flash
-            HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, flash_addr, data16);
+            HAL_StatusTypeDef status = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, flash_addr, data16);
+            if (status != HAL_OK)
+            {
+                // 抓到了！在这里打断点，查看是配置错误还是Flash被锁了
+                uint32_t error_code = HAL_FLASH_GetError();
+                // 打印错误码
+                printf("Flash Error Code: 0x%08X\n", error_code);
+                break;
+            }
         }
         // 2.4  记录偏移量
         flash_write_offset += Size;
