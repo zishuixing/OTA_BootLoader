@@ -19,7 +19,12 @@ uint32_t last_rec_time = 0;
 
 //记录数据总长度
 
-void Int_boot_jump_to_application(void)
+/*
+ * @brief 跳转应用
+ * @return 0: 跳转成功
+ * @return 1: 跳转失败
+ */
+uint8_t Int_boot_jump_to_application(void)
 {
     // 定义一个指针函数
     typedef void (*Funcp)(void);
@@ -38,7 +43,7 @@ void Int_boot_jump_to_application(void)
 
         printf("Stack Address Error: 0x%08X\n", stack_addr);
 
-        return;
+        return 1;
     }
 
     // 1.2校验跳转地址 end合法性
@@ -48,7 +53,7 @@ void Int_boot_jump_to_application(void)
         // 错误打印
         printf("Jump Address Error: 0x%08X\n", jump_addr);
 
-        return;
+        return 1;
     }
 
     // 2.注销bootloader程序

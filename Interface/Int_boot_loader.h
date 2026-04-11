@@ -20,7 +20,7 @@
 
 void Int_boot_loader_Init(void);
 
-void Int_boot_jump_to_application(void);
+uint8_t Int_boot_jump_to_application(void);
 
 extern uint8_t rx_buf[BOOTLOADER_RX_BUF_SIZE];
 extern uint16_t rx_len;

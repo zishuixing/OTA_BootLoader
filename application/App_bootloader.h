@@ -30,7 +30,7 @@ void App_bootloader_handle_data(void);
  * @brief 检查数据
  *
  */
-void App_bootloader_check_data(void);
+uint8_t App_bootloader_check_data(void);
 
 /*
  * @brief 跳转应用

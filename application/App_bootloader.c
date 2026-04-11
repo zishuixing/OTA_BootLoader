@@ -122,20 +122,26 @@ void App_bootloader_rec_data(void)
 
 /*
  * @brief 检查数据
- *
+ * @return 0: 校验通过
+ * @return 1: 校验不通过
  */
-void App_bootloader_check_data(void)
+uint8_t App_bootloader_check_data(void)
 {
     // 校验数据长度
     if (rx_len != bin_bytes)
     {
         printf("data len error\n");
+        // 校验不通过 打印两个字节错误信息
+        printf("bin data receive len error: %d,start check len: %d\n", rx_len, bin_bytes);
+
+        return 1;
     }
     else
     {
         printf("data len ok\n");
         // 状态改变
         bootloader_state = BOOTLOADER_STATE_JUMP;
+        return 0;
     }
 }
 
@@ -162,6 +168,7 @@ void App_bootloader_work(void)
     {
     case BOOTLOADER_STATE_INIT:
 
+        App_bootloader_Init();
         App_bootloader_run();
         break;
     case BOOTLOADER_STATE_RUN:
@@ -193,11 +200,30 @@ void App_bootloader_work(void)
     //     break;
     case BOOTLOADER_STATE_CHECK:
         /* 检查数据 */
-        App_bootloader_check_data();
+
+        if (App_bootloader_check_data() == 1)
+        {
+            /* code */
+            // 校验不通过 重启单片机
+            NVIC_SystemReset();
+        }
+
         break;
     case BOOTLOADER_STATE_JUMP:
         /* 跳转应用 */
-        App_bootloader_jump_app();
+        // 跳转应用
+        if (Int_boot_jump_to_application() == 0)
+        {
+            // 跳转成功
+            printf("jump app success\n");
+        }
+        else
+        {
+            // 跳转失败
+            printf("jump app fail\n");
+            // 重启单片机
+            NVIC_SystemReset();
+        }
         break;
 
     default:
