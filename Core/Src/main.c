@@ -91,25 +91,28 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   // 初始化bootloader
-  Int_boot_loader_Init();
+  App_bootloader_Init();
+
+  // Int_boot_loader_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    HAL_Delay(3000);
-    // 灯闪烁
-    HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+    // HAL_Delay(3000);
+    // // 灯闪烁
+    // HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 
-    // 打印数据长度
-    printf("rx_len:%d\r\n", rx_len);
-    // 跳转到application程序复位中断
-    Int_boot_jump_to_application();
+    // // 打印数据长度
+    // printf("rx_len:%d\r\n", rx_len);
+    // // 跳转到application程序复位中断
+    // Int_boot_jump_to_application();
 
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    App_bootloader_work();
   }
   /* USER CODE END 3 */
 }

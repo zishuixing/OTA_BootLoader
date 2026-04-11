@@ -19,6 +19,7 @@
 "ota_bootloader\stm32f1xx_hal_exti.o"
 "ota_bootloader\system_stm32f1xx.o"
 "ota_bootloader\int_boot_loader.o"
+"ota_bootloader\app_bootloader.o"
 --library_type=microlib --strict --scatter "OTA_BootLoader\OTA_BootLoader.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

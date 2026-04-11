@@ -9,6 +9,7 @@
                 "d:\\2026\\ZIQI\\BootLoader_OTA\\OTA_BootLoader\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
                 "d:\\2026\\ZIQI\\BootLoader_OTA\\OTA_BootLoader\\Drivers\\CMSIS\\Include",
                 "d:\\2026\\ZIQI\\BootLoader_OTA\\OTA_BootLoader\\Interface",
+                "d:\\2026\\ZIQI\\BootLoader_OTA\\OTA_BootLoader\\application",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include",
                 "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
                 "d:\\2026\\ZIQI\\BootLoader_OTA\\OTA_BootLoader\\MDK-ARM",

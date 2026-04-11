@@ -14,6 +14,11 @@ uint8_t is_last_byte = 0;
 // flag 标志位
 uint8_t is_flag_byte = 0;
 
+//记录当前一次接收数据的时间
+uint32_t last_rec_time = 0;
+
+//记录数据总长度
+
 void Int_boot_jump_to_application(void)
 {
     // 定义一个指针函数
@@ -48,8 +53,8 @@ void Int_boot_jump_to_application(void)
 
     // 2.注销bootloader程序
 
-    NVIC_DISABLE_IRQ(EXTI9_5_IRQn);
-    NVIC_DISABLE_IRQ(USART1_IRQn);
+    NVIC_DisableIRQ(EXTI9_5_IRQn);
+    NVIC_DisableIRQ(USART1_IRQn);
 
     // 关闭systick
     SysTick->CTRL = 0;
@@ -160,6 +165,8 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
     // 接收完成回调函数
     if (huart->Instance == USART1)
     {
+        // 记录当前接收数据的时间
+        last_rec_time = HAL_GetTick();
         rx_len_Size = Size;
         rx_len += Size;
 
