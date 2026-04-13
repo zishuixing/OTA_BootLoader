@@ -14,6 +14,18 @@ extern uint16_t rx_len;
 
 extern uint32_t last_rec_time;
 
+// 设置标志位 接收完毕
+uint8_t rx_complete_flag = 0;
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == KEY1_Pin)
+    {
+        // 重启bootloader
+        rx_complete_flag = 1;
+    }
+}
+
 typedef enum
 {
     BOOTLOADER_STATE_INIT = 0,
@@ -149,12 +161,12 @@ uint8_t App_bootloader_check_data(void)
  * @brief 跳转应用
  *
  */
-void App_bootloader_jump_app(void)
+uint8_t App_bootloader_jump_app(void)
 {
-    printf("jump app\n");
+    printf("jump app fuck\n");
 
     // 跳转应用
-    Int_boot_jump_to_application();
+    return Int_boot_jump_to_application();
 }
 
 /*
@@ -191,7 +203,14 @@ void App_bootloader_work(void)
     case BOOTLOADER_STATE_REC:
         /* 接收数据 */
 
-        App_bootloader_rec_data();
+        // App_bootloader_rec_data();
+
+        if (rx_complete_flag == 1)
+        {
+            // 接收完成 校验数据
+            bootloader_state = BOOTLOADER_STATE_CHECK;
+        }
+
         break;
     // case BOOTLOADER_STATE_HANDLE:
     //     /* 处理数据 */
@@ -212,7 +231,7 @@ void App_bootloader_work(void)
     case BOOTLOADER_STATE_JUMP:
         /* 跳转应用 */
         // 跳转应用
-        if (Int_boot_jump_to_application() == 0)
+        if (App_bootloader_jump_app() == 0)
         {
             // 跳转成功
             printf("jump app success\n");

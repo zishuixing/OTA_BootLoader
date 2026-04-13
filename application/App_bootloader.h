@@ -36,7 +36,7 @@ uint8_t App_bootloader_check_data(void);
  * @brief 跳转应用
  *
  */
-void App_bootloader_jump_app(void);
+uint8_t App_bootloader_jump_app(void);
 
 /*
  * @brief 擦除页 =>需要解锁flash

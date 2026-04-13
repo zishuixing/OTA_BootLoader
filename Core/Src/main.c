@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -25,6 +27,9 @@
 /* USER CODE BEGIN Includes */
 #include "string.h"
 #include "int_boot_loader.h"
+#include "app_bootloader_w24c02.h"
+#include "Int_w25q32.h"
+#include "int_w24c02.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,9 +94,44 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_I2C2_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+  printf("wcnm\n");
+  // 读取芯片型号
+  uint8_t u_mf = 0;
+  uint16_t u_id = 0;
+  Int_w25q32_ReadID(&u_mf, &u_id);
+  printf("u_mf:%d,u_id:%d\n", u_mf, u_id);
+
+  // 段擦除 sector
+  // Int_w25q32_EraseSector(0, 0);
+
+  // 写入数据
+  // uint8_t data[11] = "hello world";
+  // Int_w25q32_WriteData(0, 0, 0, 0xFE, data, 11);
+
+  // 读取数据
+  uint8_t read_data[12] = {0};
+  Int_w25q32_ReadData(0, 0, 0, 0x00, read_data, 11);
+  printf("read_data:%s\n", read_data);
+
+  // 检查是否需要更新
+  App_bootloader_check_update();
+
+  // 根据状态判断是否需要更新
+  App_bootloader_is_need_update();
+  // 说明需要更新
+  // 执行更新操作
+
+  // 执行跳转程序
+  App_bootloader_jump_program();
+
   // 初始化bootloader
-  App_bootloader_Init();
+  // App_bootloader_Init();
+
+  // Int 初始化bootloader
+  // App_bootloader_Init();
 
   // Int_boot_loader_Init();
   /* USER CODE END 2 */
@@ -112,7 +152,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    App_bootloader_work();
+    // App_bootloader_work();
   }
   /* USER CODE END 3 */
 }

@@ -24,9 +24,16 @@ ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.
 ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
+ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h
 ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
 ota_bootloader\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
+ota_bootloader\main.o: ../Core/Inc/i2c.h
+ota_bootloader\main.o: ../Core/Inc/spi.h
 ota_bootloader\main.o: ../Core/Inc/usart.h
 ota_bootloader\main.o: ../Core/Inc/gpio.h
 ota_bootloader\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ota_bootloader\main.o: ../Interface/int_boot_loader.h
+ota_bootloader\main.o: ../application/app_bootloader_w24c02.h
+ota_bootloader\main.o: ../Interface/Int_W24C02.h
+ota_bootloader\main.o: ../Interface/Int_w25q32.h

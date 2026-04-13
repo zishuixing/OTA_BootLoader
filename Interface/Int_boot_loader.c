@@ -14,10 +14,10 @@ uint8_t is_last_byte = 0;
 // flag 标志位
 uint8_t is_flag_byte = 0;
 
-//记录当前一次接收数据的时间
+// 记录当前一次接收数据的时间
 uint32_t last_rec_time = 0;
 
-//记录数据总长度
+// 记录数据总长度
 
 /*
  * @brief 跳转应用
@@ -47,7 +47,6 @@ uint8_t Int_boot_jump_to_application(void)
     }
 
     // 1.2校验跳转地址 end合法性
-
     if (jump_addr < APPLICATION_FLASH_START_ADDR || jump_addr > APPLICATION_FLASH_END_ADDR)
     {
         // 错误打印
@@ -57,7 +56,6 @@ uint8_t Int_boot_jump_to_application(void)
     }
 
     // 2.注销bootloader程序
-
     NVIC_DisableIRQ(EXTI9_5_IRQn);
     NVIC_DisableIRQ(USART1_IRQn);
 
@@ -80,6 +78,7 @@ uint8_t Int_boot_jump_to_application(void)
     SCB->VTOR = APPLICATION_FLASH_START_ADDR;
 
     // 3.跳转到application程序复位中断
+    // 打印执行跳转函数
     Funcp jump_to_app = (Funcp)jump_addr;
     jump_to_app();
 }

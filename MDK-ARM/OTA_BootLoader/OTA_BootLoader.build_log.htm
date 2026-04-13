@@ -22,24 +22,20 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 d:\2026\ZIQI\BootLoader_OTA\OTA_BootLoader\MDK-ARM\OTA_BootLoader.uvprojx
-Project File Date:  04/10/2026
+Project File Date:  04/13/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'OTA_BootLoader'
-compiling App_bootloader.c...
-..\application\App_bootloader.c(7): warning:  #47-D: incompatible redefinition of macro "BOOTLOADER_RX_BUF_SIZE"  (declared at line 6 of "../Interface/Int_boot_loader.h")
-  #define BOOTLOADER_RX_BUF_SIZE 64
-..\application\App_bootloader.c(84): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
-          char *start = strstr(rx_bufs, "start:");
-..\application\App_bootloader.c(88): warning:  #223-D: function "atoi" declared implicitly
-              bin_bytes = atoi(start + 6);
-..\application\App_bootloader.c: 3 warnings, 0 errors
+compiling main.c...
+../Core/Src/main.c(100): warning:  #223-D: function "printf" declared implicitly
+    printf("wcnm\n");
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-Program Size: Code=11004 RO-data=512 RW-data=52 ZI-data=1708  
+Program Size: Code=16340 RO-data=380 RW-data=48 ZI-data=1816  
 FromELF: creating hex file...
 After Build - User command #1: C:\Keil_v5\ARM\ARMCLANG\bin\fromelf --bin -o "OTA_BootLoader\OTA_BootLoader.bin" "OTA_BootLoader\OTA_BootLoader.axf"
-"OTA_BootLoader\OTA_BootLoader.axf" - 0 Error(s), 3 Warning(s).
+"OTA_BootLoader\OTA_BootLoader.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -63,7 +59,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS/Core/Include/tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
